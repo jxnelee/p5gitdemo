@@ -50,6 +50,7 @@ function setup() { //set up goes in here
   //create "files"
   file1 = createInput();
   file1.size(200, 100)
+  //file1.style('border', 'none', 'background-color', '#D3D3D3');
   file1.position(60, 120);
   file2 = createInput();
   file2.size(200, 100)
@@ -61,7 +62,7 @@ function setup() { //set up goes in here
   // create buttons
   addButton = createButton('git add');
   addButton.position(buffer + 10, 520);
-  addButton.style('border', 'none');
+  addButton.style('border', 'none', 'font-family', 'Courier New');
   addButton.mousePressed(doAdd);
   commitButton = createButton('git commit -m "______"');
   commitButton.position(buffer*2 + width + 10, 520);
@@ -83,11 +84,17 @@ function setup() { //set up goes in here
   
   //create computer and git labels
   noFill();
-  stroke(255);
-  arc(460, 570, 750, 70, 0, PI, OPEN);
+  // stroke(255);
+  // arc(460, 570, 750, 70, 0, PI, OPEN);
+  // fill(255);
+  // noStroke();
+  // 
+  fill(215);
+  rect(120, 565, 650, 50, 20);
+  rect(970, 565, 130, 50, 20);
   fill(255);
-  noStroke();
-  text('your computer!', 410, 630);
+  text('your computer!', 410, 595);
+  text('GitHub', 1010, 595);
 
   loadImage('http://pngimg.com/uploads/github/github_PNG40.png', img => {
     console.log('here')
@@ -112,11 +119,11 @@ function doAdd() {
     if (totaltxt.length > file1og.length) {
       let changed = totaltxt.replace(file1og, "");
       file1og = totaltxt;
-      changes.push("+ " + changed);
+      changes.push("+ " + changed + ' (file1.txt)');
     } else {
       let changed = file1og.replace(totaltxt, '');
       file1og = totaltxt;
-      changes.push('- ' + changed);
+      changes.push('- ' + changed + ' (file1.txt)');
     }
   }
   if (addButton.html().includes("file2.txt") || addButton.html().includes("all")) {
@@ -124,11 +131,11 @@ function doAdd() {
     if (totaltxt.length > file2og.length) {
       let changed = totaltxt.replace(file2og, "");
       file2og = totaltxt;
-      changes.push("+ " + changed);
+      changes.push("+ " + changed + ' (file2.txt)');
     } else {
       let changed = file2og.replace(totaltxt, '');
       file2og = totaltxt;
-      changes.push('- ' + changed);
+      changes.push('- ' + changed + ' (file2.txt)');
     }
   }
   if (addButton.html().includes("file3.txt") || addButton.html().includes("all")) {
@@ -136,11 +143,11 @@ function doAdd() {
     if (totaltxt.length > file3og.length) {
       let changed = totaltxt.replace(file3og, "");
       file3og = totaltxt;
-      changes.push("+ " + changed);
+      changes.push("+ " + changed + ' (file3.txt)');
     } else {
       let changed = file3og.replace(totaltxt, '');
       file3og = totaltxt;
-      changes.push('- ' + changed);
+      changes.push('- ' + changed + ' (file3.txt)');
     }
   }
   stage();
@@ -149,13 +156,13 @@ function doAdd() {
   addButton.html('git add');
 
   //enable commit message
-  text('commit message:', 345, 450);
+  textSize(11);
+  text('commit message:', 345, 455);
   commitMessage = createInput();
   commitMessage.position(345, 460);
 }
 
 function stage() {
-  console.log(changes);
   let x = 345;
   let startPos = 120;
   let buffer = 20;
@@ -217,7 +224,7 @@ function doPush() {
     remoteRepoItems[i].position(pushX, pushStart + 15);
     pushStart += pushBuffer;
   }
-  pushed += 1;
+  pushed += (localRepoItems.length - pushed);
 }
 
 let textTracker = "git add";
