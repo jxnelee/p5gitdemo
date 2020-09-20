@@ -106,7 +106,7 @@ function doAdd() {
   file3Select.checked(false);
 
   //add stuff to the staging area
-  if (addButton.html().includes("file1.txt")) {
+  if (addButton.html().includes("file1.txt") || addButton.html().includes("all")) {
     //get the changed value
     let totaltxt = file1.value();
     if (totaltxt.length > file1og.length) {
@@ -119,7 +119,7 @@ function doAdd() {
       changes.push('- ' + changed);
     }
   }
-  if (addButton.html().includes("file2.txt")) {
+  if (addButton.html().includes("file2.txt") || addButton.html().includes("all")) {
     let totaltxt = file2.value();
     if (totaltxt.length > file2og.length) {
       let changed = totaltxt.replace(file2og, "");
@@ -131,7 +131,7 @@ function doAdd() {
       changes.push('- ' + changed);
     }
   }
-  if (addButton.html().includes("file3.txt")) {
+  if (addButton.html().includes("file3.txt") || addButton.html().includes("all")) {
     let totaltxt = file3.value();
     if (totaltxt.length > file3og.length) {
       let changed = totaltxt.replace(file3og, "");
