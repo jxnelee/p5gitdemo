@@ -1,7 +1,7 @@
 let file1Select, file2Select, file3Select;
 let file1og, file2og, file3og;
 let file1, file2, file3;
-let addButton, commitButton, pushButton;
+let initButton, addButton, commitButton, pushButton;
 let commitMessage;
 let checked, changes;
 let stagePanelItems, localRepoItems, remoteRepoItems;
@@ -12,6 +12,10 @@ function setup() { //set up goes in here
   file1og = ""; file2og = ""; file3og = "";
   changes = [];
   stagePanelItems = []; localRepoItems = []; remoteRepoItems = [];
+
+  initButton = createButton('git init');
+  initButton.position(140, 270);
+  initButton.mousePressed(doInit);
 
   //create the working canvas
   createCanvas(1200, 800); 
@@ -30,40 +34,6 @@ function setup() { //set up goes in here
   rect(buffer*3 + width*2, 100, width, height, curve);
   rect(buffer*4 + width*3, 100, width, height, curve);
 
-  //make "add" panel
-  file1Select = createCheckbox('file1.txt', false);
-  file1Select.style('font-size', '13px');
-  file1Select.style('font-family', 'Arial');
-  file1Select.position(140, 102);
-  file1Select.changed(add1);
-  file2Select = createCheckbox('file2.txt', false);
-  file2Select.style('font-size', '13px');
-  file2Select.style('font-family', 'Arial');
-  file2Select.position(140, 232);
-  file2Select.changed(add2);
-  file3Select = createCheckbox('file3.txt', false);
-  file3Select.style('font-size', '13px');
-  file3Select.style('font-family', 'Arial');
-  file3Select.position(140, 362);
-  file3Select.changed(add3);
-
-  //create "files"
-  file1 = createInput();
-  file1.size(200, 100)
-  //file1.style('border', 'none', 'background-color', '#D3D3D3');
-  file1.position(60, 120);
-  file2 = createInput();
-  file2.size(200, 100)
-  file2.position(60, 250);
-  file3 = createInput();
-  file3.size(200, 100)
-  file3.position(60, 380);
-
-  // create buttons
-  addButton = createButton('git add');
-  addButton.position(buffer + 10, 520);
-  addButton.style('border', 'none', 'font-family', 'Courier New');
-  addButton.mousePressed(doAdd);
   commitButton = createButton('git commit -m "______"');
   commitButton.position(buffer*2 + width + 10, 520);
   commitButton.style('border', 'none');
@@ -96,13 +66,51 @@ function setup() { //set up goes in here
   text('your computer!', 410, 595);
   text('GitHub', 1010, 595);
 
-  loadImage('http://pngimg.com/uploads/github/github_PNG40.png', img => {
-    console.log('here')
-    image(img, 970, 630, 50, 50);
-  });
-  loadImage('computer.png', img1 => {
-    image(img1, 970, 630);
-  });
+  // loadImage('http://pngimg.com/uploads/github/github_PNG40.png', img => {
+  //   console.log('here')
+  //   image(img, 970, 630, 50, 50);
+  // });
+  // loadImage('computer.png', img1 => {
+  //   image(img1, 970, 630);
+  // });
+}
+
+function doInit() {
+  initButton.remove();
+
+  //make add panel
+  file1Select = createCheckbox('file1.txt', false);
+  file1Select.style('font-size', '13px');
+  file1Select.style('font-family', 'Arial');
+  file1Select.position(140, 102);
+  file1Select.changed(add1);
+  file2Select = createCheckbox('file2.txt', false);
+  file2Select.style('font-size', '13px');
+  file2Select.style('font-family', 'Arial');
+  file2Select.position(140, 232);
+  file2Select.changed(add2);
+  file3Select = createCheckbox('file3.txt', false);
+  file3Select.style('font-size', '13px');
+  file3Select.style('font-family', 'Arial');
+  file3Select.position(140, 362);
+  file3Select.changed(add3);
+
+  //create "files"
+  file1 = createInput();
+  file1.size(200, 100)
+  file1.position(60, 120);
+  file2 = createInput();
+  file2.size(200, 100)
+  file2.position(60, 250);
+  file3 = createInput();
+  file3.size(200, 100)
+  file3.position(60, 380);
+
+  //create add button
+  addButton = createButton('git add');
+  addButton.position(50, 520);
+  addButton.style('border', 'none', 'font-family', 'Courier New');
+  addButton.mousePressed(doAdd);
 }
 
 function doAdd() {
